@@ -62,6 +62,15 @@ class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 10
 
+    """
+    inner join
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        bk = Book.objects.select_related()
+        context['bk'] = bk
+        return context
+    """
+
 
 class AuthorDetailView(generic.DetailView):
     model = Author
@@ -120,7 +129,7 @@ def renew_book_librarian(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
+        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
 
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
 
@@ -128,12 +137,12 @@ def renew_book_librarian(request, pk):
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'12/10/2016',}
+    initial = {'date_of_death': '12/10/2016'}
 
 
 class AuthorUpdate(UpdateView):
     model = Author
-    fields = ['first_name','last_name','date_of_birth','date_of_death']
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 
 class AuthorDelete(DeleteView):
