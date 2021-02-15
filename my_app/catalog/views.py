@@ -16,7 +16,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Author
 
-
 # Create your views here.
 def index(request):
     """
@@ -43,7 +42,7 @@ def index(request):
             'num_instances': num_instances,
             'num_instances_available': num_instances_available,
             'num_authors': num_authors,
-            'num_visits': num_visits
+            'num_visits': num_visits,
             }
         )
 
